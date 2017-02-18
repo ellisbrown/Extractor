@@ -8,17 +8,27 @@ Uses selenium and chromium webdriver to extract page information from javascript
 
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 CHROME_DRIVER_PATH = '/home/brownel3/workspace/chromedriver'
 
-class Extract(object):
+class Extractor(object):
 
-    def __init__(self, url):
+    def __init__(self):
         """
         initializes a chromedriver instance and  a base url
         gets the url and waits for the js on the page to load
         """
-        self.driver = webdriver.Chrome(CHROME_DRIVER_PATH)
+        chrome_options = Options()
+        # chrome_options.add_argument("--no-startup-window")
+        chrome_options.add_argument('--disable-extensions')
+        self.driver = webdriver.Chrome(CHROME_DRIVER_PATH, chrome_options=chrome_options)
+        self.url = ""
+
+    def get(self, url):
+        """
+        gets a page by a url
+        """
         self.url = url
         self.driver.get(url)
         time.sleep(2)

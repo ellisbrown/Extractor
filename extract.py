@@ -9,8 +9,12 @@ Uses selenium and chromium webdriver to extract page information from javascript
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import configparser
 
-CHROME_DRIVER_PATH = '/home/brownel3/workspace/chromedriver'
+# load config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+chromedriver = config['chromedriver']
 
 class Extractor(object):
 
@@ -26,9 +30,10 @@ class Extractor(object):
         gets the url and waits for the js on the page to load
         """
         chrome_options = Options()
-        # chrome_options.add_argument("--no-startup-window")
-        chrome_options.add_argument('--disable-extensions')
-        self.driver = webdriver.Chrome(CHROME_DRIVER_PATH, chrome_options=chrome_options)
+        args = chromedriver['args'].split(',') # args should be comma delimited
+        for arg in args:
+            if arg: chrome_options.add_argument(arg)
+        self.driver = webdriver.Chrome(chromedriver['path'], chrome_options=chrome_options)
         self.url = ""
 
     def get(self, url):

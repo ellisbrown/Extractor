@@ -5,7 +5,7 @@ from extract import Extractor
 
 BASE = "http://www.mapdevelopers.com/what-county-am-i-in.php?address="
 
-with open("stations_new.csv", 'r') as f:
+with open("stations.csv", 'r') as f:
     station_raw = list(csv.reader(f, delimiter=','))
 
     headers = station_raw[0]
@@ -38,11 +38,11 @@ with extractor:
                 print('SUCC : ', row)
             except:
                 print('ERR  : ',row[:3])
-                extractor.quit()
+                extractor.driver.quit()
                 extractor.reinitialize()
                 # break 
 
-with open('stations_new.csv', 'wb') as f:
+with open('stations.csv', 'wb') as f:
     np.savetxt(f, station_data, fmt='%s,%s,%s,%s,%s,%s,%s,%s', delimiter=",",
                header=(",".join(headers)), comments='')
 

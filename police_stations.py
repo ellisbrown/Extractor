@@ -86,9 +86,9 @@ with extractor:
         # state = states[row[1]]
         station = row[2] # + " " + state
         url = BASE + station.replace(' ', '%20')
-        if row[3] != '': 
+        if row[6] != '': 
             # skip if data already loaded
-            print('PASS : ', row[0:3])
+            print('PASS : ', row[:3])
         else:
             try:
                 extractor.get(url)
@@ -96,10 +96,11 @@ with extractor:
                 for key, value in ids.items():
                     row[idx] = extractor.id_text(value)
                     idx += 1
-                print('SUCC : ', row[0:3])
+                print('SUCC : ', row)
             except:
-                print('ERR  : ',row[0:3])
-                break 
+                print('ERR  : ',row[:3])
+                extractor.reinitialize()
+                # break 
 
 with open('stations_new.csv', 'wb') as f:
     np.savetxt(f, station_data, fmt='%s,%s,%s,%s,%s,%s,%s,%s', delimiter=",",

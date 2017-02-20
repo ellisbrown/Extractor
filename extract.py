@@ -16,6 +16,12 @@ class Extractor(object):
 
     def __init__(self):
         """
+        calls the reinitialize method to set up the class
+        """
+        self.reinitialize()
+
+    def reinitialize(self):
+        """
         initializes a chromedriver instance and  a base url
         gets the url and waits for the js on the page to load
         """

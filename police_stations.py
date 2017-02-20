@@ -1,6 +1,6 @@
 import csv
 import numpy as np
-from extract import Extractor
+from extractor import Extractor
 
 
 BASE = "http://www.mapdevelopers.com/what-county-am-i-in.php?address="

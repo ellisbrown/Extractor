@@ -42,7 +42,7 @@ with extractor:
                 extractor.reinitialize()
                 # break 
 
-with open('stations.csv', 'wb') as f:
+with open('stations_complete.csv', 'wb') as f:
     np.savetxt(f, station_data, fmt='%s,%s,%s,%s,%s,%s,%s,%s', delimiter=",",
                header=(",".join(headers)), comments='')
 
